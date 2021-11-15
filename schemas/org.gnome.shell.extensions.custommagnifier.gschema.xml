@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist>
+	<schema id="org.gnome.shell.extensions.custommagnifier"	path="/org/gnome/shell/extensions/custommagnifier/">
+		<key type="as" name="zoom-out">
+			<default><![CDATA[['<Alt>KP_Subtract']]]></default>
+			<summary>Zoom out</summary>
+			<description/>
+		</key>
+		<key type="as" name="zoom-in">
+			<default><![CDATA[['<Alt>KP_Add']]]></default>
+			<summary>Zoom in</summary>
+			<description/>
+		</key>
+		<key type="d" name="zoom-min">
+			<default>1.0</default>
+			<summary>Minimum zoom level</summary>
+			<description/>
+		</key>
+		<key type="d" name="zoom-max">
+			<default>16.0</default>
+			<summary>Maximum zoom level</summary>
+			<description/>
+		</key>
+		<key type="d" name="zoom-multiplier">
+			<default>1.2</default>
+			<summary>Zoom multiplier</summary>
+			<description/>
+		</key>
+	</schema>
+</schemalist>

@@ -1,12 +1,14 @@
 {
-  "name": "Custom Magnifier",
-  "description": "Change GNOME magnification using <alt>+NumPadSubtract and <alt>+NumPadAdd.",
-  "uuid": "custommagnifier@simonallen.org",
-  "version": 1,
-  "shell-version": [
-    "3.28",
-    "3.30",
-    "3.32",
-    "3.34"
-  ]
+	"name": "Custom Magnifier",
+	"description": "Change GNOME magnification using <Alt>KP_Subtract and <Alt>KP_Add.",
+	"uuid": "custommagnifier@simonallen.org",
+	"version": 2,
+	"shell-version": [
+		"3.28",
+		"3.30",
+		"3.32",
+		"3.34",
+		"40.0",
+		"41.0"
+	]
 }
