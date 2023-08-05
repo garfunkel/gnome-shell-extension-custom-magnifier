@@ -2,12 +2,12 @@
 <schemalist>
 	<schema id="org.gnome.shell.extensions.custommagnifier"	path="/org/gnome/shell/extensions/custommagnifier/">
 		<key type="as" name="zoom-out">
-			<default><![CDATA[['<Alt>KP_Subtract']]]></default>
+			<default><![CDATA[['<Super>KP_Subtract']]]></default>
 			<summary>Zoom out</summary>
 			<description/>
 		</key>
 		<key type="as" name="zoom-in">
-			<default><![CDATA[['<Alt>KP_Add']]]></default>
+			<default><![CDATA[['<Super>KP_Add']]]></default>
 			<summary>Zoom in</summary>
 			<description/>
 		</key>
