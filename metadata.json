@@ -2,16 +2,10 @@
 	"name": "Custom Magnifier",
 	"description": "Change GNOME magnification using <Alt>KP_Subtract and <Alt>KP_Add.",
 	"uuid": "custommagnifier@simonallen.org",
-	"version": 2,
+	"url": "https://github.com/garfunkel/gnome-shell-extension-custom-magnifier",
+	"settings-schema": "org.gnome.shell.extensions.custommagnifier",
+	"version": 3,
 	"shell-version": [
-		"3.28",
-		"3.30",
-		"3.32",
-		"3.34",
-		"40.0",
-		"41.0",
-		"42.0",
-		"43.0",
-		"44.0"
+		"45"
 	]
 }

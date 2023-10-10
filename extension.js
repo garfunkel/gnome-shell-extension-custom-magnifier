@@ -1,48 +1,51 @@
-function getSettings() {
-	let GioSSS = imports.gi.Gio.SettingsSchemaSource;
-	let schemaSource = GioSSS.new_from_directory(imports.misc.extensionUtils.getCurrentExtension().dir.get_child("schemas").get_path(), GioSSS.get_default(), false);
-	let schemaObj = schemaSource.lookup("org.gnome.shell.extensions.custommagnifier", true);
+import {Extension} from 'resource:///org/gnome/shell/extensions/extension.js';
+import Gio from 'gi://Gio';
+import Shell from "gi://Shell";
+import Meta from "gi://Meta";
+import * as Main from "resource:///org/gnome/shell/ui/main.js";
 
-	if (!schemaObj) {
-		throw new Error("cannot find schema");
+export default class CustomMagnifier extends Extension {
+	getZoomSettings() {
+		return new Gio.Settings({
+			schema: "org.gnome.desktop.a11y.magnifier"
+		});
 	}
 
-	return new imports.gi.Gio.Settings({settings_schema: schemaObj});
-}
+	enable() {
+		this._zoomSettings = this.getZoomSettings();
+		this._settings = this.getSettings();
+		this._zoomMin = this._settings.get_double("zoom-min");
+		this._zoomMax = this._settings.get_double("zoom-max");
+		this._zoomMultiplier = this._settings.get_double("zoom-multiplier");
 
-function getZoomSettings() {
-	return new imports.gi.Gio.Settings({
-		schema: "org.gnome.desktop.a11y.magnifier"
-	});
-}
+		Main.wm.addKeybinding("zoom-out", this._settings, Meta.KeyBindingFlags.NONE, Shell.ActionMode.ALL, this._zoomOut.bind(this));
+		Main.wm.addKeybinding("zoom-in", this._settings, Meta.KeyBindingFlags.NONE, Shell.ActionMode.ALL, this._zoomIn.bind(this));
+	}
 
-function enable() {
-	let mode = imports.gi.Shell.ActionMode.ALL;
-	let flag = imports.gi.Meta.KeyBindingFlags.NONE;
-	let settings = getSettings();
-	let zoomSettings = getZoomSettings();
-	let zoomMin = settings.get_double("zoom-min");
-	let zoomMax = settings.get_double("zoom-max");
-	let zoomMultiplier = settings.get_double("zoom-multiplier");
+	_zoomOut() {
+		let zoomFactor = this._zoomSettings.get_double("mag-factor");
 
-	imports.ui.main.wm.addKeybinding("zoom-out", settings, flag, mode, () => {
-		let zoomFactor = zoomSettings.get_double("mag-factor");
-
-		if (zoomFactor > zoomMin) {
-			zoomSettings.set_double("mag-factor", Math.max(zoomMin, zoomFactor / zoomMultiplier));
+		if (zoomFactor > this._zoomMin) {
+			this._zoomSettings.set_double("mag-factor", Math.max(this._zoomMin, zoomFactor / this._zoomMultiplier));
 		}
-	});
+	}
 
-	imports.ui.main.wm.addKeybinding("zoom-in", settings, flag, mode, () => {
-		let zoomFactor = zoomSettings.get_double("mag-factor");
+	_zoomIn() {
+		let zoomFactor = this._zoomSettings.get_double("mag-factor");
 
-		if (zoomFactor < zoomMax) {
-			zoomSettings.set_double("mag-factor", Math.min(zoomMax, zoomFactor * zoomMultiplier));
+		if (zoomFactor < this._zoomMax) {
+			this._zoomSettings.set_double("mag-factor", Math.min(this._zoomMax, zoomFactor * this._zoomMultiplier));
 		}
-	});
-}
+	}
 
-function disable() {
-	imports.ui.main.wm.removeKeybinding("zoom-out");
-	imports.ui.main.wm.removeKeybinding("zoom-in");
+	disable() {
+		Main.wm.removeKeybinding("zoom-out");
+		Main.wm.removeKeybinding("zoom-in");
+
+		this._zoomSettings = null;
+		this._settings = null;
+		this._zoomMin = null;
+		this._zoomMax = null;
+		this._zoomMultiplier = null;
+	}
 }
