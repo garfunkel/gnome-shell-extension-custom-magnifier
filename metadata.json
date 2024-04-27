@@ -6,6 +6,7 @@
 	"settings-schema": "org.gnome.shell.extensions.custommagnifier",
 	"version": 3,
 	"shell-version": [
-		"45"
+		"45",
+		"46"
 	]
 }
